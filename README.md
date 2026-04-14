@@ -1,41 +1,45 @@
-# Website
+# ITE 207: Web System and Technologies 1
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Welcome to the course repository for **ITE 207: Web System and Technologies 1**. This site serves as the central hub for all course materials, including theoretical lectures and practical laboratory activities.
 
-## Installation
+## 📌 Project Overview
 
-```bash
-yarn
-```
+The site is built using [Docusaurus 3](https://docusaurus.io/), a modern static site generator that supports MDX (Markdown + React). It is designed to provide students with a clear, organized, and interactive learning experience.
 
-## Local Development
+### Course Structure
 
-```bash
-yarn start
-```
+- **Lectures**: Theoretical foundations of web systems, protocols, and architectures.
+- **Laboratories**: Hands-on technical activities, including the "Cyber Snake" lab.
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## 🛠️ Local Development
 
-## Build
+Ensure you have [Node.js](https://nodejs.org/) and `pnpm` (or `npm`/`yarn`) installed.
 
-```bash
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
+### 1. Install Dependencies
 
 ```bash
-USE_SSH=true yarn deploy
+pnpm install
 ```
 
-Not using SSH:
+### 2. Start the Development Server
 
 ```bash
-GIT_USER=<Your GitHub username> yarn deploy
+pnpm start
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+### 3. Build for Production
+
+```bash
+pnpm build
+```
+
+## 🚀 Deployment
+
+This project is optimized for deployment on **Vercel** or **GitHub Pages**. To deploy:
+
+1. Push your changes to GitHub.
+2. Link your repository to Vercel for automatic deployments.
+
+---
+
+**Created By: Alden Derf**
