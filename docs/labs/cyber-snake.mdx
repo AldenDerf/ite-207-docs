@@ -1,0 +1,116 @@
+---
+title: 🐍 Cyber Snake Lab
+description: Build a modern, neon-themed Snake game using JavaScript and Local Storage.
+sidebar_position: 1
+---
+
+# 🐍 Lab: Vibe Coding "Cyber Snake"
+
+Welcome, Class! Today you will experience **Vibe Coding**. Instead of writing every line manually, you will act as an **Architect and Reviewer**, guiding an AI to build a modern, neon-themed Snake game.
+
+## 🎯 Objectives
+
+1.  **Understand JavaScript Logic**: Use AI to generate code, then read and explain it.
+2.  **Learn Local Storage**: Implement a persistent leaderboard that saves high scores even after refreshing.
+3.  **Modular Development**: Separate your code into HTML, CSS, and JS files.
+
+---
+
+## 🚀 The Vibe Coding Prompt
+
+Copy and paste the prompt below into your AI Coding Assistant (Antigravity, Claude, or GPT).
+
+:::Important
+**Instructions for students**: You must read the code the AI gives you. If you don't understand a section, ask the AI to explain it further!
+:::
+
+### The Prompt
+
+```text
+I want to build a modern, neon-styled "Cyber Snake" game using Vanilla JavaScript and HTML5 Canvas.
+
+Please provide the code in three separate files:
+1. index.html (structure)
+2. style.css (vibrant neon aesthetics)
+3. script.js (game logic)
+
+Game Requirements:
+- Use a HTML5 Canvas for the game board.
+- The theme should be "Cyberpunk/Neon" (dark background, glowing lines, glitch effects on text).
+- Include a "Start Screen" with an "INITIALIZE" button.
+- Include a "Game Over" screen that shows the final score.
+- Include a "Leaderboard" screen that displays the Top 5 scores.
+
+JavaScript & Local Storage Requirements:
+- Use Local Storage to save and retrieve the leaderboard data (key: "cyberSnakeLeaders").
+- The snake should grow when eating food and increase speed every 10 levels.
+- IMPORTANT: Add detailed comments to the JavaScript code explaining what each function and logic block does (e.g., how the game loop works, how collision is detected, and how Local Storage is handled).
+
+Design Aesthetics:
+- Use "Outfit" or "Inter" Google Fonts.
+- Add a "Glitch" animation for the titles.
+- Use glassmorphism (blur backgrounds) for the UI panels.
+```
+
+---
+
+## 📝 Student Checklist
+
+- [ ] **Setup**: Create a folder and the three empty files (`index.html`, `style.css`, `script.js`).
+- [ ] **Prompt**: Run the prompt above and paste the results into your files.
+- [ ] **Analyze**: Locate the `localStorage.setItem` and `localStorage.getItem` calls in `script.js`.
+- [ ] **Comment Review**: Do the comments help you understand the code? If not, ask the AI: _"Can you explain the Local Storage part in more detail with comments?"_
+- [ ] **Verify**: Play the game, save a score, refresh the page, and check if the leaderboard still shows your name!
+
+---
+
+## 🌐 Deploying to the Web
+
+Now that your game is working locally, let's share it with the world!
+
+### 1. Initialize Git & GitHub
+
+You need to turn your folder into a Git repository and push it to GitHub.
+
+```bash title="Terminal"
+# Initialize git
+git init
+
+# Add your files
+git add .
+git commit -m "Initial commit: Cyber Snake Game"
+
+# Create a new repository on GitHub.com, then run:
+git remote add origin https://github.com/YOUR_USERNAME/cyber-snake.git
+git branch -M main
+git push -u origin main
+```
+
+:::warning
+Replace `YOUR_USERNAME` with your actual GitHub username!
+:::
+
+#### Alternative: Using GitHub Desktop
+
+If you prefer a visual interface:
+
+1.  Open **GitHub Desktop** and select **"Add"** > **"Create New Repository"**.
+2.  Set the **Local Path** to your `cyber-snake` folder.
+3.  Click **"Create Repository"**.
+4.  Commit your changes and click **"Publish Repository"** to send it to GitHub.
+
+### 2. Deploy to Vercel
+
+Vercel is the easiest way to host your Vanilla JavaScript projects for free.
+
+1.  Go to [Vercel.com](https://vercel.com) and sign in with GitHub.
+2.  Click **"Add New"** > **"Project"**.
+3.  **Import** your `cyber-snake` repository.
+4.  Leave the settings as default and click **"Deploy"**.
+5.  Wait 30 seconds, and your game will be live on a custom `.vercel.app` URL!
+
+---
+
+:::tip
+**Pro Tip**: If the snake is too fast or the game is too hard, you can "vibe" with the AI to change the difficulty: _"Make the snake move 20% slower and increase the food size."_
+:::
