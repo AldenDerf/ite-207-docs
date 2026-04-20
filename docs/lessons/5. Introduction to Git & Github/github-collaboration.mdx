@@ -1,0 +1,292 @@
+---
+title: 5.2 Using GitHub for Collaboration and Portfolio
+sidebar_label:  5.2 GitHub Collaboration
+sidebar_position: 2
+---
+
+import React, { useState } from "react";
+import Admonition from "@theme/Admonition";
+
+export const Quiz = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [showResults, setShowResults] = useState(false);
+  const questions = [
+    {
+      id: 1,
+      question:
+        "If Git is your 'personal diary' of code, what is GitHub in our analogy?",
+      options: ["The Public Library", "The Secret Vault", "The Trash Can"],
+      correct: 0,
+      hint: "It's a place where everyone can share and backup their work.",
+    },
+    {
+      id: 2,
+      question:
+        "What should you do first if you want to add a 'Contact Us' page to a group project without breaking the website?",
+      options: [
+        "Edit the Main code directly",
+        "Create a new Branch",
+        "Delete the project and restart",
+      ],
+      correct: 1,
+      hint: "Think of the 'Parallel Universe' where it's safe to experiment.",
+    },
+    {
+      id: 3,
+      question:
+        "Which process allows you to copy someone else's project onto your own GitHub account?",
+      options: ["Merging", "Cloning", "Forking"],
+      correct: 2,
+      hint: "Like a 'Fork in the road,' you are creating your own path from their project.",
+    },
+    {
+      id: 4,
+      question:
+        "What is the name of the request you send to a project owner to ask them to include your code changes?",
+      options: ["Pull Request (PR)", "Push Notification", "Friend Request"],
+      correct: 0,
+      hint: "You are asking the owner to 'Pull' your changes into their project.",
+    },
+    {
+      id: 5,
+      question:
+        "Which file is considered the most important part of your portfolio to explain what your project does?",
+      options: ["index.html", "README.md", "package.json"],
+      correct: 1,
+      hint: "This file is the 'face' of your repository; it's the first thing people read.",
+    },
+  ];
+  const handleSelect = (qId, optionIdx) => {
+    setSelectedAnswers({ ...selectedAnswers, [qId]: optionIdx });
+  };
+  const checkAnswers = () => {
+    if (Object.keys(selectedAnswers).length < questions.length) {
+      alert("Please answer all questions first!");
+      return;
+    }
+    setShowResults(true);
+  };
+  const resetQuiz = () => {
+    setSelectedAnswers({});
+    setShowResults(false);
+  };
+  const getScore = () => {
+    return questions.reduce(
+      (acc, q) => acc + (selectedAnswers[q.id] === q.correct ? 1 : 0),
+      0,
+    );
+  };
+  return (
+    <div
+      style={{
+        backgroundColor: "var(--ifm-color-emphasis-100)",
+        padding: "24px",
+        borderRadius: "12px",
+        border: "1px solid var(--ifm-color-emphasis-300)",
+        color: "var(--ifm-font-color-base)",
+        margin: "20px 0",
+      }}>
+      {questions.map((q, idx) => (
+        <div key={q.id} style={{ marginBottom: "24px" }}>
+          <p style={{ fontWeight: "bold", marginBottom: "12px" }}>
+            {idx + 1}. {q.question}
+          </p>
+          {q.options.map((opt, optIdx) => (
+            <label
+              key={optIdx}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "8px",
+                cursor: showResults ? "default" : "pointer",
+                padding: "8px",
+                borderRadius: "6px",
+                backgroundColor:
+                  showResults && optIdx === q.correct
+                    ? "rgba(0, 255, 0, 0.1)"
+                    : "transparent",
+                border:
+                  showResults &&
+                  selectedAnswers[q.id] === optIdx &&
+                  optIdx !== q.correct
+                    ? "1px solid rgba(255, 0, 0, 0.3)"
+                    : "1px solid transparent",
+              }}>
+              <input
+                type="radio"
+                name={`q${q.id}`}
+                checked={selectedAnswers[q.id] === optIdx}
+                onChange={() => handleSelect(q.id, optIdx)}
+                disabled={showResults}
+                style={{ marginRight: "10px" }}
+              />
+              <span>{opt}</span>
+              {showResults && optIdx === q.correct && (
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    color: "green",
+                    fontSize: "18px",
+                  }}>
+                  ✔️
+                </span>
+              )}
+              {showResults &&
+                selectedAnswers[q.id] === optIdx &&
+                optIdx !== q.correct && (
+                  <span
+                    style={{
+                      marginLeft: "auto",
+                      color: "red",
+                      fontSize: "18px",
+                    }}>
+                    ❌
+                  </span>
+                )}
+            </label>
+          ))}
+          {showResults && (
+            <p
+              style={{
+                fontSize: "0.9em",
+                color: "var(--ifm-color-emphasis-700)",
+                fontStyle: "italic",
+                marginTop: "4px",
+              }}>
+              💡 {q.hint}
+            </p>
+          )}
+        </div>
+      ))}
+      {!showResults ? (
+        <button
+          onClick={checkAnswers}
+          style={{
+            backgroundColor: "#2980b9",
+            color: "white",
+            border: "none",
+            padding: "12px 24px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            width: "100%",
+          }}>
+          Check My Score
+        </button>
+      ) : (
+        <div
+          style={{
+            textAlign: "center",
+            paddingTop: "20px",
+            borderTop: "2px solid var(--ifm-color-emphasis-300)",
+          }}>
+          <h3 style={{ marginBottom: "10px" }}>
+            Your Results: {getScore()} / {questions.length}
+          </h3>
+          <p>
+            {getScore() === questions.length
+              ? "🌟 Exceptional! You're a GitHub Pro!"
+              : "📚 Keep it up! Collaboration is key in development."}
+          </p>
+          <button
+            onClick={resetQuiz}
+            style={{
+              backgroundColor: "var(--ifm-color-emphasis-600)",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              marginTop: "10px",
+            }}>
+            Try Again
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+# Module 5.2: Using GitHub for Collaboration and Portfolio 🚀
+
+Now that you know how to save your work locally with Git, it’s time to share it with the world! **GitHub** is the most popular platform where developers host their code, work together on massive projects, and build a "coding resume" for future employers.
+
+---
+
+## 1. Why GitHub? 🤔
+
+If Git is your **personal diary** of code, GitHub is the **public library**. It allows you to:
+
+- **Backup your work:** If your laptop breaks, your code is safe in the cloud.
+- **Collaborate:** Work on the same project with people from across the globe.
+- **Showcase your Portfolio:** Show potential employers exactly how you write code and solve problems.
+
+---
+
+## 2. Branching and Merging (The Parallel Universe) 🌌
+
+In a professional team, you never want to edit the "Main" code directly while it's live. Instead, we use **Branches**.
+
+- **Branching:** Creating a safe copy of the project to test a new idea (like a new "Dark Mode" feature).
+- **Merging:** Once your new feature is perfect, you "merge" it back into the Main project.
+
+### Commands for Branching:
+
+1.  **Create a branch:** `git checkout -b feature-dark-mode`
+2.  **Switch back to main:** `git checkout main`
+3.  **Combine work:** `git merge feature-dark-mode`
+
+---
+
+## 3. Collaborative Workflow (Pull Requests) 🤝
+
+When you work with others, you don't just push your code into their project. You follow a polite "Ask and Review" process:
+
+1.  **Fork:** Copy someone else's project to your own account.
+2.  **Clone:** Download that copy to your computer.
+3.  **Push:** Send your improvements back to your GitHub copy.
+4.  **Pull Request (PR):** You ask the original owner: _"Hey, I improved your code. Would you like to pull my changes into your project?"_
+
+---
+
+## 4. Building Your Portfolio (The README.md) 📋
+
+Your GitHub profile is often the first thing a recruiter looks at. The most important file in any repository is the **README.md**.
+
+A great README should use **Markdown (.md)** formatting to include:
+
+- **Project Title & Description:** What does this do?
+- **Technologies Used:** (e.g., HTML, CSS, JavaScript, Git).
+- **How to Install:** Clear steps for others to run your code.
+- **Your Contact Info:** Let people know who built it!
+
+:::tip Pro-Tip
+Treat your GitHub **"Contributions Calendar"** (the green squares) as a habit tracker. It shows employers your consistency!
+:::
+
+---
+
+## 5. Ethical Collaboration & Documentation 💡
+
+Being a good developer isn't just about code; it's about being a good teammate.
+
+- **Be Descriptive:** Never use commit messages like `"update"` or `"fix"`. Use `"Fix: Corrected the color of the submit button"`.
+- **Respect the License:** If you use someone else's open-source code, credit them.
+- **Code Review Etiquette:** When reviewing a classmate's Pull Request, be helpful and kind, not just critical.
+
+---
+
+## 🚀 Dive Deeper
+
+Ready to become a GitHub power user? Explore these resources to learn about Remote Repositories and advanced collaboration:
+
+- **W3Schools GitHub Remote Guide:** [w3schools.com/git/remote_github](https://www.w3schools.com/git/default.asp?remote=github) — Learn how to link your computer to the cloud.
+- **GitHub Skills:** [skills.github.com](https://skills.github.com/) — Interactive lessons built by the GitHub team.
+
+---
+
+## 🧠 Practice Quiz (Test Your Memory!)
+
+Try to answer the questions below. Once you're done, click the **"Check My Score"** button to see how you did!
+
+<Quiz />

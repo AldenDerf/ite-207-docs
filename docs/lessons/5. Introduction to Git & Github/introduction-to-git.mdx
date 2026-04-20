@@ -1,0 +1,324 @@
+---
+title: "5.1: Introduction to Git"
+sidebar_label: 5.1 Introduction to Git
+sidebar_position: 1
+---
+
+import React, { useState } from "react";
+import Admonition from "@theme/Admonition";
+
+export const Quiz = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [showResults, setShowResults] = useState(false);
+  const questions = [
+    {
+      id: 1,
+      question:
+        "Which command starts a new project and tells Git to start 'watching' your folder?",
+      options: ["git start", "git add", "git init"],
+      correct: 2,
+      hint: "Think of the 'Handshake'—you do this once at the beginning!",
+    },
+    {
+      id: 2,
+      question:
+        "In the shipping analogy, what area represents 'The Box' where you organize files before saving them?",
+      options: ["Working Directory", "Staging Area", "Repository"],
+      correct: 1,
+      hint: "It's the middle stage where files are waiting to be sealed.",
+    },
+    {
+      id: 3,
+      question:
+        "Which command creates an official 'Save Point' (Commit) in your project's history?",
+      options: ["git commit -m '...'", "git save", "git push"],
+      correct: 0,
+      hint: "You 'seal' the box with a label/message.",
+    },
+    {
+      id: 4,
+      question:
+        "If you want to send your local 'Save Points' to the cloud (GitHub), which command do you use?",
+      options: ["git upload", "git push", "git remote init"],
+      correct: 1,
+      hint: "You are 'pushing' your data up to the server.",
+    },
+    {
+      id: 5,
+      question:
+        "Which command asks Git: 'What is happening right now?' (to see red or green files)?",
+      options: ["git hello", "git log", "git status"],
+      correct: 2,
+      hint: "Use this to check if your files are in the box or still on the desk.",
+    },
+  ];
+  const handleSelect = (qId, optionIdx) => {
+    setSelectedAnswers({ ...selectedAnswers, [qId]: optionIdx });
+  };
+  const checkAnswers = () => {
+    if (Object.keys(selectedAnswers).length < questions.length) {
+      alert("Please answer all questions first!");
+      return;
+    }
+    setShowResults(true);
+  };
+  const resetQuiz = () => {
+    setSelectedAnswers({});
+    setShowResults(false);
+  };
+  const getScore = () => {
+    return questions.reduce(
+      (acc, q) => acc + (selectedAnswers[q.id] === q.correct ? 1 : 0),
+      0,
+    );
+  };
+  return (
+    <div
+      style={{
+        backgroundColor: "var(--ifm-color-emphasis-100)",
+        padding: "24px",
+        borderRadius: "12px",
+        border: "1px solid var(--ifm-color-emphasis-300)",
+        color: "var(--ifm-font-color-base)",
+        margin: "20px 0",
+      }}>
+      {questions.map((q, idx) => (
+        <div key={q.id} style={{ marginBottom: "24px" }}>
+          <p style={{ fontWeight: "bold", marginBottom: "12px" }}>
+            {idx + 1}. {q.question}
+          </p>
+          {q.options.map((opt, optIdx) => (
+            <label
+              key={optIdx}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "8px",
+                cursor: showResults ? "default" : "pointer",
+                padding: "8px",
+                borderRadius: "6px",
+                backgroundColor:
+                  showResults && optIdx === q.correct
+                    ? "rgba(0, 255, 0, 0.1)"
+                    : "transparent",
+                border:
+                  showResults &&
+                  selectedAnswers[q.id] === optIdx &&
+                  optIdx !== q.correct
+                    ? "1px solid rgba(255, 0, 0, 0.3)"
+                    : "1px solid transparent",
+              }}>
+              <input
+                type="radio"
+                name={`q${q.id}`}
+                checked={selectedAnswers[q.id] === optIdx}
+                onChange={() => handleSelect(q.id, optIdx)}
+                disabled={showResults}
+                style={{ marginRight: "10px" }}
+              />
+              <span>{opt}</span>
+              {showResults && optIdx === q.correct && (
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    color: "green",
+                    fontSize: "18px",
+                  }}>
+                  ✔️
+                </span>
+              )}
+              {showResults &&
+                selectedAnswers[q.id] === optIdx &&
+                optIdx !== q.correct && (
+                  <span
+                    style={{
+                      marginLeft: "auto",
+                      color: "red",
+                      fontSize: "18px",
+                    }}>
+                    ❌
+                  </span>
+                )}
+            </label>
+          ))}
+          {showResults && (
+            <p
+              style={{
+                fontSize: "0.9em",
+                color: "var(--ifm-color-emphasis-700)",
+                fontStyle: "italic",
+                marginTop: "4px",
+              }}>
+              💡 {q.hint}
+            </p>
+          )}
+        </div>
+      ))}
+      {!showResults ? (
+        <button
+          onClick={checkAnswers}
+          style={{
+            backgroundColor: "#2980b9",
+            color: "white",
+            border: "none",
+            padding: "12px 24px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            width: "100%",
+          }}>
+          Check My Score
+        </button>
+      ) : (
+        <div
+          style={{
+            textAlign: "center",
+            paddingTop: "20px",
+            borderTop: "2px solid var(--ifm-color-emphasis-300)",
+          }}>
+          <h3 style={{ marginBottom: "10px" }}>
+            Your Results: {getScore()} / {questions.length}
+          </h3>
+          <p>
+            {getScore() === questions.length
+              ? "🌟 Amazing! You are a Git Guru!"
+              : "📚 Keep practicing! Git is all about repetition."}
+          </p>
+          <button
+            onClick={resetQuiz}
+            style={{
+              backgroundColor: "var(--ifm-color-emphasis-600)",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              marginTop: "10px",
+            }}>
+            Try Again
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+# Module 5.1: Introduction to Git 🌿
+
+Welcome to the world of Version Control! If you have ever felt the panic of accidentally deleting a line of code or wished you could "Undo" your work from three days ago, Git is your new best friend.
+
+---
+
+## 1. What is Git? (The "Save Game" Concept) 🎮
+
+Imagine you are playing a difficult video game. Before you fight a big boss, you **save your progress**. If you lose the fight, you don't start the whole game over; you just reload that specific save point.
+
+**Git** does this for your code. It creates "Save Points" (called **Commits**) so you can experiment freely. If your code breaks, you simply jump back to a version that worked.
+
+---
+
+## 2. The Beginner's Workflow (The Three Stages) 📦
+
+To "save" your work in Git, you move your files through three different areas. Think of it like **shipping a package**:
+
+1.  **Working Directory (The Desk):** This is your folder on your computer. You are actively typing and making a mess here.
+2.  **Staging Area (The Box):** You’ve finished a task. You put the specific files you want to save into a "box." They aren't sent yet; you're just organizing them.
+3.  **Repository (The Sent Parcel):** You "seal" the box with a label (a message). It is now permanently recorded in your project’s history.
+
+---
+
+## 3. First-Timer Example: Saving Your First File 🛠️
+
+Let’s imagine you are building your very first project. Here is how you would use Git for the very first time.
+
+### Step A: Initialize (The Handshake)
+
+Open your terminal inside your project folder and type:
+
+```bash
+git init
+```
+
+- **What happened?** Git just created a hidden folder. It is now "watching" everything you do in this folder.
+
+### Step B: Create your file
+
+Create a file named `index.html`. Write `<h1>Hello World</h1>` inside it.
+
+### Step C: Check the status
+
+Type:
+
+```bash
+git status
+```
+
+- **The Result:** Git will show `index.html` in **red**. This means Git sees the file, but it hasn't been "put in the box" (staged) yet.
+
+### Step D: Stage the file (Put it in the box)
+
+Type:
+
+```bash
+git add index.html
+```
+
+- **What happened?** If you run `git status` again, the file name will turn **green**. It is now in the **Staging Area**, waiting to be saved.
+
+### Step E: Commit the file (The Save Point)
+
+Type:
+
+```bash
+git commit -m "Initial commit: Add Hello World heading"
+```
+
+- **The Result:** Congratulations! You just created your first official "Save Point." Even if you delete the text in `index.html` tomorrow, Git remembers exactly how it looked at this moment.
+
+---
+
+## 4. Connecting to the Cloud (GitHub) ☁️
+
+Once you have your local "Save Points," you want to back them up online so you can collaborate with others or show off your portfolio. This is where **GitHub** comes in.
+
+As detailed in the [W3Schools Git Remote Guide](https://www.w3schools.com/git/default.asp?remote=github), the process involves:
+
+1.  **Create a Remote Repo:** Create a new repository on GitHub.com.
+2.  **Add Remote:** Link your local folder to that online URL:
+    ```bash
+    git remote add origin https://github.com/username/repo-name.git
+    ```
+3.  **Push:** Send your local "Save Points" to the cloud:
+    ```bash
+    git push -u origin main
+    ```
+
+---
+
+## 5. Key Commands Summary 📜
+
+| Command               | What it does in "Beginner Terms"                      |
+| :-------------------- | :---------------------------------------------------- |
+| `git init`            | Starts a new project (Do this only once per project). |
+| `git status`          | Asks Git: "What is happening right now?"              |
+| `git add .`           | Puts **all** changed files into the "box" (Staging).  |
+| `git commit -m "..."` | Saves the "box" forever with a descriptive note.      |
+| `git push`            | Uploads your "Save Points" to GitHub.                 |
+| `git log`             | Shows you a list of all your previous "Save Points."  |
+
+---
+
+## 🚀 Dive Deeper
+
+If you want to master more advanced features or need a quick syntax reminder, check out these official resources:
+
+- **W3Schools Git Tutorial:** [w3schools.com/git](https://www.w3schools.com/git/default.asp) — Great for interactive examples and quick lookups.
+- **Official Git Documentation:** [git-scm.com/doc](https://git-scm.com/doc) — The "Bible" of Git for when you want to understand the deep technical details.
+
+---
+
+## 🧠 Practice Quiz (Test Your Memory!)
+
+Try to answer the questions below. Once you're done, click the **"Check My Score"** button to see how you did!
+
+<Quiz />
